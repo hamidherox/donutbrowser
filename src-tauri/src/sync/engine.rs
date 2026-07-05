@@ -2545,12 +2545,13 @@ impl SyncEngine {
 
   /// Check for profiles that exist remotely but not locally and download them
   pub async fn check_for_missing_synced_profiles(
-    log::info!("==========================");
-    log::info!("CHECK_FOR_MISSING_PROFILES STARTED");
-    log::info!("==========================");
+   
     &self,
     app_handle: &tauri::AppHandle,
   ) -> SyncResult<Vec<String>> {
+    log::info!("==========================");
+    log::info!("CHECK_FOR_MISSING_PROFILES STARTED");
+    log::info!("==========================");
     log::info!("Checking for missing synced profiles...");
 
     // List all personal profiles from S3 (paginated)
