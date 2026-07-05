@@ -44,8 +44,18 @@ export class AuthGuard implements CanActivate {
     const token = authHeader.substring(7);
 
     // Try SYNC_TOKEN first (self-hosted mode)
-    const expectedToken = this.configService.get<string>("SYNC_TOKEN");
-    if (expectedToken && safeEqual(token, expectedToken)) {
+const expectedToken = this.configService.get<string>("SYNC_TOKEN");
+
+this.logger.log("========== AUTH DEBUG ==========");
+this.logger.log(`Authorization header: ${authHeader}`);
+this.logger.log(`Received token: "${token}"`);
+this.logger.log(`Expected token: "${expectedToken}"`);
+this.logger.log(`Token length: ${token.length}`);
+this.logger.log(`Expected length: ${expectedToken?.length ?? 0}`);
+this.logger.log(`Tokens match: ${expectedToken ? safeEqual(token, expectedToken) : false}`);
+this.logger.log("================================");
+
+if (expectedToken && safeEqual(token, expectedToken)) {
       (request as unknown as Record<string, unknown>).user = {
         mode: "self-hosted",
         prefix: "",
