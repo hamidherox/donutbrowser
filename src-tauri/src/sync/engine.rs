@@ -2545,6 +2545,9 @@ impl SyncEngine {
 
   /// Check for profiles that exist remotely but not locally and download them
   pub async fn check_for_missing_synced_profiles(
+    log::info!("==========================");
+    log::info!("CHECK_FOR_MISSING_PROFILES STARTED");
+    log::info!("==========================");
     &self,
     app_handle: &tauri::AppHandle,
   ) -> SyncResult<Vec<String>> {
@@ -2552,6 +2555,10 @@ impl SyncEngine {
 
     // List all personal profiles from S3 (paginated)
     let all_objects = self.client.list_all("profiles/").await?;
+    log::info!("Found {} remote objects", all_objects.len());
+
+    for obj in &all_objects {
+    log::info!("REMOTE: {}", obj.key);
 
     let mut downloaded: Vec<String> = Vec::new();
 
