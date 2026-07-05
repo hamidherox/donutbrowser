@@ -736,6 +736,8 @@ export class SyncService implements OnModuleInit {
 
                 const previousStateKey = lastKnownState.get(relativeKey);
                 if (previousStateKey !== stateKey) {
+                  this.logger.log(`Sending SSE change: ${relativeKey}`);
+                  
                   events.push({
                     type: "change",
                     key: relativeKey,
